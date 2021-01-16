@@ -25,9 +25,7 @@ export class Register extends Component {
       this.props.createMessage({ passwordNotMatch: 'Passwords do not match' });
     } else {
       const newUser = {
-        username,
-        password,
-        email,
+        username, email, password 
       };
       this.props.register(newUser);
     }

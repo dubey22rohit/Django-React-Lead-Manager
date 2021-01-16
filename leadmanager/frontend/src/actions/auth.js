@@ -7,7 +7,7 @@ import {
   LOGIN_FAIL,
   LOGOUT_SUCCESS,
   REGISTER_SUCCESS,
-  REGISTER_FAIL
+  REGISTER_FAIL,
 } from "./type";
 import { returnErrors } from "./messages";
 export const loadUser = () => (dispatch, getState) => {
@@ -97,4 +97,19 @@ export const register = ({ username, email, password }) => (dispatch) => {
       dispatch(returnErrors(err.response.data, err.response.status));
       dispatch({ type: REGISTER_FAIL });
     });
+};
+
+export const tokenConfig = (getState) => {
+  const token = getState().auth.token;
+  //Headers
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  //If token add to headers config
+  if (token) {
+    config.headers["Authorization"] = `Token ${token}`;
+  }
+  return config;
 };
